@@ -27,6 +27,10 @@
   }
    */
 
+.display {
+  display: none;
+}
+
   button {
     background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
     border-radius: 8px;
@@ -42,6 +46,8 @@
     transition-property: background-color;
     transition-timing-function: linear;
     margin-top: 0.6em;
+    display: block;
+    margin: 0 auto;
   }
   
   header {
