@@ -8,29 +8,29 @@ var gameIndex = 0;
 // This is my index/array of questions & answers
 var questionsAnswers = [
     {
-        q: "Which is the largest state in the United States of America?",
-        choices: ["1. Alaska", "2. California", "3. Texas", "4. Washington"],
-        answers: "1. Alaska"
+        q: "Commonly used data types DO NOT include:",
+        choices: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
+        answers: "3. Alerts"
     },
     {
-        q: "How many colors are in the rainbow?",
-        choices: ["1. Five", "2. Ten", "3. Nine", "4. Seven"],
-        answers: "4. Seven"
+        q: "String values must be enclosed within _____ when being assigned to variables.",
+        choices: ["1. Commas", "2. Curly Brackets", "3. Quotes", "4. Parentheses"],
+        answers: "3. Quotes"
     },
     {
-        q: "How many sides are there to an octogon?",
-        choices: ["1. Four", "2. Eight", "3. Five", "4. Ten"],
-        answers: "2. Eight"
+        q: "Arrays in JavaScript can be used to store _____.",
+        choices: ["1. Numbers and strings", "2. Other arrays", "3. Booleans", "4. All of the above"],
+        answers: "4. All of the above"
     },
     {
-        q: "How many dimes are in 1 dollar?",
-        choices: ["1. 20", "2. 100", "3. 10", "4. 50"],
-        answers: "3. 10"
+        q: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        choices: ["1. JavaScript", "2. Terminal/Bash", "3. For loops", "4. console.log"],
+        answers: "4. console.log"
     },
     {
-        q: "What is the largest country in the world?",
-        choices: ["1. Russia", "2. Canada", "3. China", "4. United States"],
-        answers: "1. Russia"
+        q: "The condition in an if / else statement is enclosed within _____.",
+        choices: ["1. Quotes", "2. Curly brackets", "3. Parentheses", "4. Square brackets"],
+        answers: "2. Curly brackets"
     }
 ]
 //console.log (questionsAnswers[1].q)
@@ -50,7 +50,8 @@ function startGame() {
     var quiz = document.getElementById("quiz");
     quiz.classList.remove("display");
 
-    startTimer()
+    startTimer();
+    getNextQuestion();
 };
 
 
@@ -64,6 +65,10 @@ function startTimer() {
                 winGame();
             }
         }
+        // if (timerCount = 0) {
+        //     stopTimer()
+        //     clearInterval(timer);
+        // }
     }, 1000);
 }
 
@@ -72,40 +77,50 @@ function getNextQuestion() {
     if (gameIndex < questionsAnswers.length) {
 
         var quizQuestion = document.getElementById("quizQuestion");
-        quizQuestion.innerHTML = "";
+        //quizQuestion.innerHTML = "";
         quizQuestion.textContent = questionsAnswers[gameIndex].q;
-        //for (var i = 0; i < questionsAnswers[gameIndex].choices.length;
-        //i++) {
-        // Create element/button
-        var btn = document.createElement("button");
-        // Inside button, add text content
-        btn.textContent = questionsAnswers[gameIndex].choices[i];
-        // then append button to front end
-        document.getElementById("quizQuestion").appendChild(btn);
-        // }
-        gameIndex++;
+
+        for (var i = 0; i < questionsAnswers[gameIndex].choices.length;
+            i++) {
+            // Create element/button
+            var btn = document.createElement("button");
+            btn.className = "answerBtn";
+            // Inside button, add text content
+            btn.textContent = questionsAnswers[gameIndex].choices[i];
+            // then append button to front end
+            document.getElementById("quizQuestion").appendChild(btn);
+            // }
+            //gameIndex++;
+        }
     }
-}
 
-getNextQuestion();
+    //getNextQuestion();
 
-// When user clicks on incorrect answer, show "Wrong answer" & advance to next question
-// When user clicks on correct answer, show "Correct answer!" & advance to next question
+    // When user clicks on incorrect answer, show "Wrong answer" & advance to next question
+    // When user clicks on correct answer, show "Correct answer!" & advance to next question
+};
 
 var quizSection = document.getElementById("quiz");
 quizSection.addEventListener("click", function (event) {
     var element = event.target;
+    gameIndex++;
 
     if (element.matches("button")) {
 
         if (element.textContent == questionsAnswers[gameIndex].answers) {
             document.getElementById("userChoice") = "Correct Answer!";
         } else {
-            document.getElementById("userChoice") = "Wrong Answer!";
+            document.getElementById("userChoice") == "Wrong Answer!";
         }
         // need to check for additional questions before calling nextQuestion
-        getNextQuestion();
+        if (gameIndex <= 4) {
+            getNextQuestion();
+        } else {
+            scorePage();
+        }
     };
+
+});
 
 
 //  Attach event listener to start button to call startGame function on click

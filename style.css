@@ -39,7 +39,7 @@
     font-size: 2em;
     letter-spacing: 0.21px;
     line-height: 16px;
-    max-width: 255px;
+    /* max-width: 255px; */
     padding: 20px 52px;
     text-align: center;
     transition-duration: 0.15s;
@@ -50,6 +50,11 @@
     margin: 0 auto;
   }
   
+.answerBtn {
+  text-align: start;
+}
+
+
   header {
     padding: 40px;
     text-align: center;
