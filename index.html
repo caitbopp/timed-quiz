@@ -13,7 +13,9 @@
         <div class="view-highscores">View Highscores</div>
         <div class="timer">
             <div class="timer-text">
-                <div class="timer-count">75</div>
+                <div class="timer-count">
+                    <h2 id="time">Time: <span id="timer">75</span></h2>
+                </div>
             </div>
         </div>
     </header>
@@ -23,7 +25,8 @@
             <h1>Coding Quiz Challenge</h1>
             <p>
 
-                Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+                Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+                answers will penalize your score/time by ten seconds!</p>
 
             <button class="start-button">Start</button>
         </section>
@@ -31,6 +34,14 @@
         <section id="quiz" class="display">
             <p id="quizQuestion"></p>
             <p id="userChoice"></p>
+        </section>
+
+        <section id="finish" class="display">
+            <h2>All done!</h2>
+            <p>Your final score is <span id="final-score"></span>.</p>
+            <p>Enter your initials: <input type="text" id="initials" maxlength="3" placeholder="Enter initials here" />
+                <button id="submit">Submit</button>
+            </p>
         </section>
 
     </main>
