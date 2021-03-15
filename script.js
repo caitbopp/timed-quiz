@@ -33,9 +33,6 @@ var questionsAnswers = [
         answer: "2. Curly brackets"
     }
 ]
-//console.log (questionsAnswers[1].q)
-//console.log (questionsAnswers[0].answers)
-
 
 
 // The startGame function is called when the start button is clicked
@@ -59,20 +56,12 @@ function startTimer() {
     timer = setInterval(function () {
         timerCount--;
         timerElement.textContent = timerCount;
-        if (timerCount >= 0) {
-            if (isWin && timerCount > 0) {
-                clearInterval(timer);
-                winGame();
-            }
-            if (timerCount == -1) {
-                clearInterval(timer);
-                alert("Time is up!");
-            }
+
+        if (timerCount === 0) {
+            clearInterval(timer);
+            alert("Time is up!");
         }
-        // if (timerCount = 0) {
-        //     stopTimer()
-        //     clearInterval(timer);
-        // }
+
     }, 1000);
 };
 
@@ -81,7 +70,7 @@ function getNextQuestion() {
     if (gameIndex < questionsAnswers.length) {
 
         var quizQuestion = document.getElementById("quizQuestion");
-        //quizQuestion.innerHTML = "";
+
         quizQuestion.textContent = questionsAnswers[gameIndex].q;
 
         for (var i = 0; i < questionsAnswers[gameIndex].choices.length;
@@ -97,16 +86,7 @@ function getNextQuestion() {
     }
 };
 
-// function checkChoice() {
-//     if (questionsAnswers[gameIndex].answer === answerBtn.target.textContent) {
-//         timer += 20 - timerCount;
-//         alert("Correct!");
-//         score += 6;
-//         timerCount = 20;
-//     } else {
-//         timerCount += 20;
-//     }
-// };
+
 
 
 
@@ -117,34 +97,72 @@ quizSection.addEventListener("click", function (event) {
     var element = event.target;
     gameIndex++;
 
-    if (element.matches("button")) {
-        if (questionsAnswers[gameIndex].answer === event.target.textContent) {
-            timer += 20 - timerCount;
-            alert("Correct!");
-            score += 6;
-            timerCount = 20;
-        } else {
-            timerCount += 20;
-        }
-        // if (element.textContent == questionsAnswers[gameIndex].answer) {
-        //     document.getElementById("userChoice") = "Correct Answer!";
-        // } else {
-        //     document.getElementById("userChoice") == "Wrong Answer!";
-        // }
-        // need to check for additional questions before calling nextQuestion
-        if (gameIndex <= 4) {
-            getNextQuestion();
-        } else {
-            gameOver();
-        }
 
-        if (timerCount <= 0) {
-            clearInterval(timer);
-            gameOver();
+    function checkChoice() {
+        if (element.textContent === questionsAnswers[gameIndex].answer) {
+            timer += 20 - timerCount;
+            //alert("Correct!");
+            score += 6;
+            //timerCount = 20;
+        } else {
+            timerCount -= 20;
         }
     };
 
+    checkChoice();
+
+
+    // if (element.matches("button")) {
+    //     if (questionsAnswers[gameIndex].answer ===
+    //         event.target.textContent
+    //     ) {
+    //         timerCount += 20;
+    //         alert("Correct!");
+    //         score += 6;
+    //     } else {
+    //         timerCount -= 20;
+    //     }
+    // if (element.textContent == questionsAnswers[gameIndex].answer) {
+    //     document.getElementById("userChoice") = "Correct Answer!";
+    // } else {
+    //     document.getElementById("userChoice") == "Wrong Answer!";
+    // }
+    // need to check for additional questions before calling nextQuestion
+    if (gameIndex <= 4) {
+        getNextQuestion();
+    } else {
+        gameOver();
+    }
+
+    if (timerCount <= 0) {
+        clearInterval(timer);
+        gameOver();
+    }
 });
+
+
+
+function saveScore() {
+    localStorage.setItem("highScore", score);
+    var score = {
+        "person": document.getElementById('name').nodeValue,
+        "score": score
+    };
+    var allHighScores = getScore();
+    allHighScores.push(entry);
+
+    localStorage.setItem("highScoreName", JSON.stringify
+        (allHighScores));
+}
+
+function getScore() {
+    var allHighScores =
+        JSON.parse(localStorage.getItem("allHighScores"));
+    if (!allHighScores) {
+        allHighScores = []
+    }
+    return allHighScores;
+}
 
 
 
@@ -163,6 +181,8 @@ function gameOver() {
     finish.classList.remove("display");
 
 };
+
+
 
 
 
