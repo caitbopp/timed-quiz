@@ -30,7 +30,7 @@ var questionsAnswers = [
     {
         q: "The condition in an if / else statement is enclosed within _____.",
         choices: ["1. Quotes", "2. Curly brackets", "3. Parentheses", "4. Square brackets"],
-        answer: "2. Curly brackets"
+        answer: "Curly brackets"
     }
 ]
 
@@ -95,39 +95,24 @@ function getNextQuestion() {
 var quizSection = document.getElementById("quiz");
 quizSection.addEventListener("click", function (event) {
     var element = event.target;
-    gameIndex++;
-
 
     function checkChoice() {
+        console.log(element.textContent);
+        console.log(questionsAnswers[gameIndex].answer);
         if (element.textContent === questionsAnswers[gameIndex].answer) {
-            timer += 20 - timerCount;
-            //alert("Correct!");
-            score += 6;
-            //timerCount = 20;
+            console.log('true');
+            timerCount += 20;
+            gameIndex++;
         } else {
             timerCount -= 20;
+            gameIndex++;
         }
     };
 
     checkChoice();
 
 
-    // if (element.matches("button")) {
-    //     if (questionsAnswers[gameIndex].answer ===
-    //         event.target.textContent
-    //     ) {
-    //         timerCount += 20;
-    //         alert("Correct!");
-    //         score += 6;
-    //     } else {
-    //         timerCount -= 20;
-    //     }
-    // if (element.textContent == questionsAnswers[gameIndex].answer) {
-    //     document.getElementById("userChoice") = "Correct Answer!";
-    // } else {
-    //     document.getElementById("userChoice") == "Wrong Answer!";
-    // }
-    // need to check for additional questions before calling nextQuestion
+
     if (gameIndex <= 4) {
         getNextQuestion();
     } else {
@@ -167,7 +152,6 @@ function getScore() {
 
 
 function gameOver() {
-    //isWin = false;
     timerCount = 0;
     startButton.disabled = true;
 
@@ -181,10 +165,6 @@ function gameOver() {
     finish.classList.remove("display");
 
 };
-
-
-
-
 
 
 //  Attach event listener to start button to call startGame function on click
